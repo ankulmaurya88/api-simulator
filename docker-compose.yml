@@ -1,0 +1,20 @@
+services:
+  backend:
+    image: your-dockerhub-username/api-backend:latest
+    container_name: api_backend_prod
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+      - PYTHONUNBUFFERED=1
+    # No volumes here - use the code inside the image
+
+  frontend:
+    image: your-dockerhub-username/api-frontend:latest
+    container_name: api_frontend_prod
+    restart: always
+    ports:
+      - "80:5173" # Mapping standard HTTP port 80 to the app port
+    depends_on:
+      - backend
